@@ -486,8 +486,8 @@ img {
   column-gap: 32px;
 }
 
-.navbar-nav > .nav-item.nav-active,
-.register > .nav-item.nav-active {
+.navbar-nav>.nav-item.nav-active,
+.register>.nav-item.nav-active {
   color: #000;
   font-weight: 600;
 }
@@ -1383,11 +1383,9 @@ img {
 .modallogin {
   .col-lg-4 {
     border-radius: 16px 0px 0px 16px;
-    background: linear-gradient(
-      332deg,
-      rgba(48, 177, 117, 1) 81%,
-      rgba(91, 220, 160, 1) 100%
-    );
+    background: linear-gradient(332deg,
+        rgba(48, 177, 117, 1) 81%,
+        rgba(91, 220, 160, 1) 100%);
   }
 }
 
@@ -1608,11 +1606,9 @@ img {
 }
 
 .ragister-content .btn-primary {
-  background: linear-gradient(
-    0deg,
-    rgba(48, 177, 117, 1) 0%,
-    rgba(91, 220, 160, 1) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(48, 177, 117, 1) 0%,
+      rgba(91, 220, 160, 1) 100%);
   font-size: 28px;
   border-radius: 40px;
   padding: 16px 38px;
@@ -1652,11 +1648,14 @@ img {
     position: relative;
     background-color: var(--lightbox);
     border: none;
+
     .modal-body {
       padding: 5% 5%;
+
       .show-image {
         width: 100%;
         height: 100%;
+
         img {
           width: 100%;
           height: 100%;
@@ -1665,12 +1664,15 @@ img {
       }
     }
   }
+
   .modal-header {
     border: none;
   }
 }
 
 .checklogin .form-check-input {
+  width: 20px;
+  height: 20px;
   float: none !important;
   margin-left: 0 !important;
 }
@@ -1695,4 +1697,41 @@ img {
   border-color: #30B175;
   outline: 0;
   box-shadow: 0 0 0 .25rem rgb(76 175 80 / 15%);
+}
+
+#modalregister .modal-content {
+  background-image: url(../../public/bg-regis.png);
+  background-repeat: repeat;
+
+  img {
+    width: 88px;
+    padding: 26px 2px;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 32px;
+    color: #fff;
+    margin: 18px 176px;
+    border-bottom: 1px solid #fff;
+  }
+
+  .row {
+    padding: 0 2rem 2rem;
+  }
+
+  .card {
+    padding: 0 22px 18px 22px;
+  }
+
+  .form-check-input {
+    color: #30B175;
+    margin-right: 2px;
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+#modalregister .col-lg-6:first-child .ms {
+  margin-bottom: 25px;
 }

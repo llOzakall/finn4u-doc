@@ -1,22 +1,22 @@
 "use client";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
 import CustomImage from "@components/CustomImage";
-import {signOut, useSession} from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Login from "./Login";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
 	const [navbarOpen, setNavOpen] = useState(false);
 	const [loginOpen, setLoginOpen] = useState(false);
 	const pathname = usePathname();
-	const {data: session, status} = useSession();
+	const { data: session, status } = useSession();
 
-	const handleLogin = ()=>{
+	const handleLogin = () => {
 		setLoginOpen(false)
 	}
 
@@ -32,17 +32,16 @@ export default function Navbar() {
 		{
 			label: "เช่า",
 			href: "#"
+		},{
+			label: "ทรัพย์สินขายฝาก",
+			href: "/property-consignment"
 		},
-		...(status === "unauthenticated" ? [{
-				label: "ทรัพย์สินขายฝาก",
-				href: "/property-sale"
-			},] : []),
 		...(status === "authenticated" ? [{
-				label: "ผู้ขายฝาก",
-				href: "/consignment"
-			},] : []), {
+			label: "ผู้ขายฝาก",
+			href: "/consignment"
+		},] : []), {
 			label: "นักลงทุน",
-			href: status === "authenticated" ? "/investment" : "/investment-register"
+			href: status === "authenticated" ? "/investment" : "/register-investment"
 		}, {
 			label: "Finn Tips",
 			href: "#"
@@ -55,7 +54,7 @@ export default function Navbar() {
 	return (
 		<> {
 			!session && (
-				<Login loginOpen={loginOpen} handleLogin={handleLogin}/>
+				<Login loginOpen={loginOpen} handleLogin={handleLogin} />
 			)
 		}
 			<div className="navbar navbar-expand-lg navbar-main">
@@ -71,7 +70,7 @@ export default function Navbar() {
 									height: "auto"
 								}
 							}
-							priority/>
+							priority />
 					</Link>
 					<Button className="navbar-toggler"
 						onClick={
@@ -88,70 +87,63 @@ export default function Navbar() {
 						<div className="navbar-collapse" id="navbarSupportedContent">
 							<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 								{
-								menuItems.map((item, index) => (
-									<li className={
-											`nav-item ${
-												pathname === item.href ? "nav-active" : ""
-											}`
-										}
-										key={index}>
-										<Link className="nav-link" aria-current="page"
-											href={
-												item.href
-										}>
-											{
-											item.label
-										}
-											{" "} </Link>
-									</li>
-								))
-							} </ul>
+									menuItems.map((item, index) => {
+										const isActive = pathname === item.href || (pathname.startsWith("/consignment/") && item.href === "/consignment");
+
+										return (
+											<li className={`nav-item ${isActive ? "nav-active" : ""}`} key={index}>
+												<Link className="nav-link" aria-current="page" href={item.href}>
+													{item.label}
+												</Link>
+											</li>
+										)
+									})
+								} </ul>
 							{
-							status !== "loading" && (status === "authenticated" ? (
-								<div className="d-flex register">
-									<Link className="btn btn-register d-flex align-items-center" href="#"
-										onClick={
-											(e) => {
-												e.preventDefault();
-												signOut();
-											}
-									}>
-										<p>{
-											session ?. user ?. name
-										}</p>
-										<Image src="/register.svg" alt="register"
-											width={26}
-											height={26}
-											priority/>
-									</Link>
-								</div>
-							) : (
-								<div className="d-flex register">
-									<div className={
-										`nav-item ${
-											pathname === "/register" ? "nav-active" : ""
-										}`
-									}>
-										<Link className="nav-link" href="/register">
-											ลงทะเบียน
+								status !== "loading" && (status === "authenticated" ? (
+									<div className="d-flex register">
+										<Link className="btn btn-register d-flex align-items-center" href="#"
+											onClick={
+												(e) => {
+													e.preventDefault();
+													signOut();
+												}
+											}>
+											<p>{
+												session?.user?.name
+											}</p>
+											<Image src="/register.svg" alt="register"
+												width={26}
+												height={26}
+												priority />
 										</Link>
 									</div>
-									<Link className="btn btn-register d-flex align-items-center" href="#"
-										onClick={
-											(e) => {
-												e.preventDefault();
-												setLoginOpen(true);
-											}
-									}>
-										<p>เข้าสู่ระบบ</p>
-										<Image src="/register.svg" alt="register"
-											width={26}
-											height={26}
-											priority/>
-									</Link>
-								</div>
-							))
-						}
+								) : (
+									<div className="d-flex register">
+										<div className={
+											`nav-item ${pathname === "/register" ? "nav-active" : ""
+											}`
+										}>
+											<Link className="nav-link" href="/register">
+												ลงทะเบียน
+											</Link>
+										</div>
+										<Link className="btn btn-register d-flex align-items-center" href="#"
+											onClick={
+												(e) => {
+													e.preventDefault();
+													setLoginOpen(true);
+												}
+											}>
+											<p>เข้าสู่ระบบ</p>
+											<Image src="/register.svg" alt="register"
+												width={26}
+												height={26}
+												priority />
+										</Link>
+									</div>
+								))
+							}
 							{" "} </div>
 					</Collapse>
 				</div>

@@ -107,6 +107,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
   },
+  secret: process.env.NEXT_PUBLIC_AUTH_SECRET ?? "terces-htua-u4nnif",
 });
 
 async function refreshAccessToken(token: Jwt | any) {

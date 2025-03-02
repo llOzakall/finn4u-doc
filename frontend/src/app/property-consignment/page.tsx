@@ -89,7 +89,7 @@ function Propertysale() {
           {[...Array(3)].map((_, i) => (
             <Link
               className="not-sale mb-5"
-              href="/property-sale/detail"
+              href="/property-consignment/detail"
               key={i}
             >
               <div className="row">

@@ -1,20 +1,20 @@
 "use client";
 import Link from "next/link";
 import CustomImage from "@components/CustomImage";
-import {useEffect, useState} from "react";
-import {signIn} from "next-auth/react";
-import {Button, Modal} from "react-bootstrap";
-import {redirect} from "next/navigation";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {FaCheckSquare} from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { signIn } from "next-auth/react";
+import { Button, Modal } from "react-bootstrap";
+import { redirect } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaCheckSquare } from "react-icons/fa";
 
-function Login({loginOpen, handleLogin} : {
-	loginOpen : boolean,
-	handleLogin : () => void
+function Login({ loginOpen, handleLogin }: {
+	loginOpen: boolean,
+	handleLogin: () => void
 }) {
 
 
-	const [loginModelOpen, setLoginOpen] = useState < boolean > ();
+	const [loginModelOpen, setLoginOpen] = useState<boolean>();
 	const [registerOpen, setRegisterOpen] = useState(false);
 
 
@@ -24,18 +24,18 @@ function Login({loginOpen, handleLogin} : {
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const handleSubmit = async (e : React.FormEvent < HTMLFormElement >) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setLoading(true);
 		setError("");
-		const res = await signIn("credentials", {email, password, redirect: false});
+		const res = await signIn("credentials", { email, password, redirect: false });
 
-		if (res ?. url) {
+		if (res?.url) {
 			handleLogin();
 			redirect(res.url);
 		}
 
-		if (res ?. error) {
+		if (res?.error) {
 			setError("Invalid email or password.");
 		}
 
@@ -43,10 +43,7 @@ function Login({loginOpen, handleLogin} : {
 	};
 
 	useEffect(() => {
-		if (loginOpen) {
-			setLoginOpen(loginOpen);
-		}
-
+		setLoginOpen(loginOpen);
 	}, [loginOpen])
 	return (
 		<>
@@ -69,7 +66,7 @@ function Login({loginOpen, handleLogin} : {
 										{
 											height: "auto"
 										}
-									}/>
+									} />
 								<span className="font2">
 									เรารักษาข้อมูลของคุณเป็นความลับสูงสุด
 								</span>
@@ -80,7 +77,7 @@ function Login({loginOpen, handleLogin} : {
 										{
 											height: "auto"
 										}
-									}/>
+									} />
 								<span>ระบบรักษาความปลอดภัยที่ธนาคารยอมรับ</span>
 							</div>
 
@@ -90,7 +87,7 @@ function Login({loginOpen, handleLogin} : {
 										{
 											height: "auto"
 										}
-									}/>
+									} />
 							</div>
 						</div>
 					</div>
@@ -108,7 +105,7 @@ function Login({loginOpen, handleLogin} : {
 											type="radio"
 											name="usertype"
 											value="general"
-											id="general"/>
+											id="general" />
 										<label className="form-check-label" htmlFor="general">
 											ผู้ใช้ทั่วไป
 										</label>
@@ -121,7 +118,7 @@ function Login({loginOpen, handleLogin} : {
 											type="radio"
 											name="usertype"
 											value="consignment"
-											id="consignment"/>
+											id="consignment" />
 										<label className="form-check-label" htmlFor="consignment">
 											ผู้ขายฝาก
 										</label>
@@ -134,7 +131,7 @@ function Login({loginOpen, handleLogin} : {
 											type="radio"
 											name="usertype"
 											value="invester"
-											id="invester"/>
+											id="invester" />
 										<label className="form-check-label" htmlFor="invester">
 											นักลงทุน
 										</label>
@@ -153,7 +150,7 @@ function Login({loginOpen, handleLogin} : {
 									value={email}
 									className="form-control font2"
 									id="email"
-									required/>
+									required />
 							</div>
 
 							<div className="mb-3">
@@ -172,7 +169,7 @@ function Login({loginOpen, handleLogin} : {
 									value={password}
 									className="form-control"
 									id="password"
-									required/>
+									required />
 							</div>
 							<div className="mb-1">
 								<span className="text-danger h6">
@@ -181,8 +178,8 @@ function Login({loginOpen, handleLogin} : {
 							<Button variant="primary" className="font2" type="submit"
 								disabled={loading}>
 								{
-								loading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"
-							}
+									loading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"
+								}
 								{" "} </Button>
 
 							<div className="or">
@@ -198,7 +195,7 @@ function Login({loginOpen, handleLogin} : {
 											{
 												height: "auto"
 											}
-										}/>
+										} />
 									<span>Facebook</span>
 								</a>
 								<a href="#" className="btn btn-secondary">
@@ -207,7 +204,7 @@ function Login({loginOpen, handleLogin} : {
 											{
 												height: "auto"
 											}
-										}/>
+										} />
 									<span>Google</span>
 								</a>
 							</div>
@@ -221,7 +218,7 @@ function Login({loginOpen, handleLogin} : {
 										(e) => {
 											e.preventDefault();
 											setRegisterOpen(true)
-											setLoginOpen(true)
+											handleLogin()
 										}
 									}
 									className="text-primary">
@@ -233,68 +230,73 @@ function Login({loginOpen, handleLogin} : {
 				</div>
 			</Modal>
 
-			<Modal className="modallogin" show={registerOpen}
+			<Modal className="modallogin" show={registerOpen} id="modalregister"
 				onHide={
-					() => setRegisterOpen(false)
-			}>
+					() => {
+						setRegisterOpen(false)
+					}
+				} size="lg" centered>
 				<p className="title">สนใจลงทะเบียนเป็น</p>
 				<div className="row">
 					<div className="col-lg-6">
 						<div className="card">
 							<div className="text-center">
-								<CustomImage src="/deal.png" alt="deal"/>
+								<CustomImage src="/deal.png" alt="deal" style={{ height: "auto" }} />
 							</div>
 
 							<div className="form-check">
-								<FaCheckSquare/>
+								<FaCheckSquare className="form-check-input" />
 								<label className="form-check-label">
 									ราคารับขายฝากสูงสุดถึง 70%
 								</label>
 							</div>
 							<div className="form-check">
+								<FaCheckSquare className="form-check-input" />
 								<label className="form-check-label">
 									อัตราผลตอบแทนสูง 9-12% ต่อป
 								</label>
 							</div>
 							<div className="form-check ms">
+								<FaCheckSquare className="form-check-input" />
 								<label className="form-check-label">
 									ลดภาระดอกเบี้ยขายฝาก 0.75% /เดือน
 								</label>
 							</div>
 
 							<div className="text-center">
-								<a href="#" className="btn btn-primary">ผู้ขายฝาก</a>
+								<Link href="/register-consigment" onClick={()=>setRegisterOpen(false)}  className="btn btn-primary">ผู้ขายฝาก</Link>
 							</div>
 						</div>
 					</div>
 					<div className="col-lg-6">
 						<div className="card">
 							<div className="text-center">
-								<CustomImage src="/homecare.png" alt="homecare"/>
+								<CustomImage src="/homecare.png" alt="homecare" style={{ height: "auto" }} />
 							</div>
-
 							<div className="form-check">
-								<FaCheckSquare/>
+								<FaCheckSquare className="form-check-input" />
 								<label className="form-check-label">
+									
 									อัตราผลตอบแทนสูง 9-12% ต่อปี
 								</label>
 							</div>
 							<div className="form-check">
-								<FaCheckSquare/>
-
+								<FaCheckSquare className="form-check-input" />
 								<label className="form-check-label">
+									
 									อสังหาริมทรัพย์มูลค่าสูงค้ำประกัน
 								</label>
 							</div>
 							<div className="form-check">
-								<FaCheckSquare/>
+								<FaCheckSquare className="form-check-input" />
 								<label className="form-check-label">
+									
 									ประเมินทรัพย์สินโดยบริษัทประเมิน
-									                                    ที่ได้รับความเห็นชอบจาก ก.ล.ต.
+									ที่ได้รับความเห็นชอบจาก ก.ล.ต.
 								</label>
 
 								<div className="text-center">
-									<a href="#" className="btn btn-primary">นักลงทุน</a>
+									<Link href="/register-investment" onClick={()=>setRegisterOpen(false)} className="btn btn-primary">นักลงทุน</Link>
 								</div>
 							</div>
 						</div>
