@@ -264,7 +264,7 @@ function Login({ loginOpen, handleLogin }: {
 							</div>
 
 							<div className="text-center">
-								<Link href="/register-consigment" onClick={()=>setRegisterOpen(false)}  className="btn btn-primary">ผู้ขายฝาก</Link>
+								<Link href="/register-consignment" onClick={()=>setRegisterOpen(false)}  className="btn btn-primary">ผู้ขายฝาก</Link>
 							</div>
 						</div>
 					</div>
